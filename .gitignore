@@ -1,0 +1,117 @@
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+
+# Postgres #
+*.psql
+*.sql
+*.sqlite3
+pg_data/
+
+# Virtual Environment #
+venv/
+env/
+.env
+.venv
+ENV/
+
+# Python #
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging #
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django static and media files #
+staticfiles/
+static/
+media/
+collected_static/
+
+# Security and Sensitive Information #
+.env
+*.env
+secrets.json
+database.json
+local_database.py
+connection_details.py
+
+# IDEs and Editors #
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.sublime-project
+.sublime-workspace
+
+# Environments and Configuration #
+.docker
+.dockerignore
+
+# Backup and Logs #
+*.bak
+*.log
+logs/
+log/
+
+# OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project-specific ignores #
+debug.log
+error.log
+
+# Dependency directories #
+node_modules/
+jspm_packages/
+
+# Celery #
+celerybeat-schedule
+celerybeat.pid
+
+# Redis #
+*.rdb
+
+# Testing #
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations #
+*.mo
