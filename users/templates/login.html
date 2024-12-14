@@ -1,0 +1,44 @@
+{% load static %}
+
+{% block content %}
+    <header>
+        <link rel="stylesheet" href="{% static 'login.css' %}">
+    </header>
+
+    <div class="container">
+        <div class="login">
+            <form method="post">
+                {% csrf_token %}
+                <h2>Welcome!</h2>
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        Your username and password didn't match. Please try again.
+                    </div>
+                {% endif %}
+
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    {{ form.username }}
+                </div>
+
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    {{ form.password }}
+                </div>
+
+{#                <div class="forget_password">#}
+{#                    <a href="#">#}
+{#                        <p>Forget Password?</p>#}
+{#                    </a>#}
+{#                </div>#}
+
+                <button type="submit">Login</button>
+
+                <div class="dont-have-acc">
+                    <a href="{% url 'user:register' %}">Don't have an account? Click here 👈</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

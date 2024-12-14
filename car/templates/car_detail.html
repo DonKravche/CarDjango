@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <header>
+        <link rel="stylesheet" href="{% static 'car_detail.css' %}">
+        <link rel="stylesheet" href="{% static 'footer.css' %}">
+    </header>
+
+    <div class="car-title-name">
+        <p style="text-align: left; margin-top: 50px; margin-left: 10px; font-weight: bold; font-size: 25px;
+        font-family: monospace;">{{ car.name }}</p>
+    </div>
+
+    <div class="car-detail-content">
+        <div class="car-images">
+            {% if car.images %}
+                <img src="{{ car.images.url }}" alt="{{ car.name }}" class="main-car-image">
+            {% else %}
+                <img src="{% static 'default-car-image.png' %}" alt="Default Car Image" class="main-car-image">
+            {% endif %}
+        </div>
+
+        <div class="car-info">
+            <div class="price-section">
+                <h2 class="car-price">${{ car.price|floatformat:2 }}</h2>
+                <span class="sale-type">
+                {% if car.sale_type == 'sale' %}
+                    For Sale
+                {% else %}
+                    For Rent
+                {% endif %}
+            </span>
+            </div>
+
+            <div class="car-details">
+                <h3>Vehicle Details</h3>
+                <table>
+                    <tr>
+                        <th>Manufacturer</th>
+                        <td>{{ car.model.manufacturer.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Model</th>
+                        <td>{{ car.model.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Generation</th>
+                        <td>{{ car.generation.name|default:"N/A" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Year</th>
+                        <td>{{ car.year }}</td>
+                    </tr>
+                    <tr>
+                        <th>Transmission</th>
+                        <td>{{ car.get_transmission_type_display }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fuel Type</th>
+                        <td>{{ car.fuel_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Color</th>
+                        <td>{{ car.colour }}</td>
+                    </tr>
+                    <tr>
+                        <th>Doors</th>
+                        <td>{{ car.doors }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="car-description">
+                <h3>Description</h3>
+                <p>{{ car.description }}</p>
+            </div>
+
+            <div class="contact-actions">
+                <button class="contact-seller">Contact Seller: {{ car.owner }} - {{ car.owner_number }}</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

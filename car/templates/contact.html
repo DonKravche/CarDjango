@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'contact.css' %}" xmlns="http://www.w3.org/1999/html">
+    <div class="contact-page">
+        <div class="contact-header">
+            <h1>დაგვიკავშირდით</h1>
+            <p>ჩვენი გუნდი მზად არის თქვენი კითხვებისა და საჭიროებებისთვის</p>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-details">
+                <div class="contact-section company-info">
+                    <h2>კომპანიის საკონტაქტო ინფორმაცია</h2>
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>მისამართი:</strong>
+                            <p>თბილისი, საქართველო<br>თბილისი, ალ. ყაზბეგის გამზ. #34/34ბ</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>სატელეფონო ცენტრი:</strong>
+                            <p>+995 555 123 456<br>+995 32 222 33 44</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>ელ-ფოსტა:</strong>
+                            <p>info@carmarket.ge<br>support@carmarket.ge</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-section working-hours">
+                    <h2>სამუშაო საათები</h2>
+                    <div class="hours-grid">
+                        <div class="day-hours" style="display: inline">
+                            <strong>ოფისი:</strong>
+                            <p><span class="days">ორშაბათი - პარასკევი:</span> 09:00 - 18:00</p>
+                        </div>
+                        <div class="day-hours" style="display: inline">
+                            <strong>სერვის ცენტრი:</strong>
+                            <p><span class="days">ორშაბათი - შაბათი:</span> 10:00 - 19:00</p>
+                        </div>
+                        <div class="day-hours" style="display: inline">
+                            <strong>სატელეფონო მხარდაჭერა:</strong>
+                            <p><span class="days">ორშაბათი - პარასკევი:</span> 09:00 - 20:00 <span
+                                    class="additional-day">შაბათი: 10:00 - 16:00</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-section communication-channels">
+                    <h2>კომუნიკაციის არხები</h2>
+                    <div class="channels-grid">
+                        <div class="channel">
+                            <i class="fab fa-facebook"></i>
+                            <div>
+                                <strong>Facebook:</strong>
+                                <a href="https://www.facebook.com/">@carmarketge</a>
+                            </div>
+                        </div>
+                        <div class="channel">
+                            <i class="fab fa-instagram"></i>
+                            <div>
+                                <strong>Instagram:</strong>
+                                <a href="https://www.instagram.com/">@carmarketge</a>
+                            </div>
+                        </div>
+                        <div class="channel">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <strong>WhatsApp:</strong>
+                                <p>+995 555 987 654</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-map">
+                <h2>ჩვენი მდებარეობა</h2>
+                <div class="map-placeholder">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2977.8951518212707!2d44.737681111363955!3d41.72278127113934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x404473f1e984eb5b%3A0xc9bc4f7477b26c2e!2sIT%20Academy%20STEP%20Georgia!5e0!3m2!1ska!2sge!4v1734181883353!5m2!1ska!2sge" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

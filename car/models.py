@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
@@ -10,27 +11,32 @@ class Manufacturer(models.Model):
         return self.name
 
 
+class CarGeneration(models.Model):
+    # model = models.ForeignKey(Model, on_delete=models.CASCADE, related_name='generations')
+    name = models.CharField(max_length=100)  # e.g., "E60", "F10", "G30" for BMW 5 Series
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class Model(models.Model):
     name = models.CharField(max_length=50)
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE, related_name='models')
+    car_generation = models.ManyToManyField(CarGeneration)
 
     def __str__(self):
         return f"{self.manufacturer.name} {self.name}"
 
 
-class CarGeneration(models.Model):
-    model = models.ForeignKey(Model, on_delete=models.CASCADE, related_name='generations')
-    name = models.CharField(max_length=100)  # e.g., "E60", "F10", "G30" for BMW 5 Series
-
-    def __str__(self):
-        return f"{self.model} - {self.name}"
-
-
 class Car(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cars', null=True, blank=True)
+    owner_number = models.CharField(max_length=50, null=True, blank=True)
     SALE_TYPE_CHOICES = [
         ('sale', 'For Sale'),
         ('rent', 'For Rent')
     ]
+
+    images = models.ImageField(upload_to='uploaded_car_images/', blank=True, null=True)
 
     name = models.CharField(max_length=100)
     model = models.ForeignKey(Model, on_delete=models.CASCADE, related_name='cars')
@@ -62,7 +68,7 @@ class Car(models.Model):
         blank=True
     )
 
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=500, null=True, blank=True)
 
     colour = models.CharField(max_length=50)
     doors = models.PositiveSmallIntegerField()

@@ -1,73 +1,89 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
 {% block content %}
-<header>
-    <div class="nav-bar">
-        <a href="{% url 'car:index' %}" class="title">
-            <h2>CarMarket.ge</h2>
-        </a>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <link rel="stylesheet" href="{% static 'footer.css' %}">
+    <main>
+        <form method="get" action="{% url 'car:index' %}">
+            <section class="filter-bar">
+                <div class="sale-type-toggle">
+                    <span>იყიდება</span>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="saleToggleFilter" name="sale_type" value="rent"
+                               {% if request.GET.sale_type == 'rent' %}checked{% endif %}>
+                        <label for="saleToggleFilter"></label>
+                    </div>
+                    <span>ქირავდება</span>
+                </div>
 
-        <form id="form" role="search" method="get" action="{% url 'car:index' %}">
-            <label for="query" class="sr-only">Search</label>
-            <input type="search" id="query" name="q" placeholder="Search for cars..." aria-label="Search through site content">
-            <button type="submit">Search</button>
+                <select name="manufacturer">
+                    <option value="">მწარმოებელი</option>
+                    {% for manufacturer in manufacturers %}
+                        <option value="{{ manufacturer.name }}"
+                                {% if request.GET.manufacturer == manufacturer.name %}selected{% endif %}>
+                            {{ manufacturer.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <select name="generation">
+                    <option value="">თაობა</option>
+                    {% for model in models %}
+                        <optgroup label="{{ model.name }}">
+                            {% for generation in model.car_generation.all %}
+                                <option value="{{ generation.name }}"
+                                        {% if request.GET.generation == generation.name %}selected{% endif %}>
+                                    {{ generation.name }}
+                                </option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endfor %}
+                </select>
+
+                <select name="year">
+                    <option value="">წელი</option>
+                    {% for available_year in years %}
+                        <option value="{{ available_year }}"
+                                {% if request.GET.year == available_year|stringformat:"s" %}selected{% endif %}>
+                            {{ available_year }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <select name="fuel_type">
+                    <option value="">საწვავი</option>
+                    {% for fuel in fuel_types %}
+                        <option value="{{ fuel }}"
+                                {% if request.GET.fuel_type == fuel %}selected{% endif %}>
+                            {{ fuel }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit" class="search-button">ძებნა</button>
+            </section>
         </form>
 
-        <a href="#" class="add_product">+ დამატება</a>
-        <a href="#" class="add_product"><i class="fa-regular fa-user"></i> შესვლა</a>
-    </div>
-</header>
+        <section class="car-listing">
+            {% for car in cars %}
+                <div class="car-card" style="width: 80%; text-align: center">
+                    {% if car.images %}
+                        <img src="{{ car.images.url }}" alt="{{ car.name }}" class="car-images" width="100%">
+                    {% else %}
+                        <img src="{% static 'images/placeholder.png' %}" alt="No image available" class="car-image">
+                    {% endif %}
+                    <h3>{{ car.name }}</h3>
+                    <p>ფასი: {{ car.price }} $</p>
+                    <p>საწვავი: {{ car.fuel_type }}</p>
 
-<main>
-    <form method="get" action="{% url 'car:index' %}">
-        <section class="filter-bar">
-            <div class="sale-type-toggle">
-                <span>იყიდება</span>
-                <div class="toggle-switch">
-                    <input type="checkbox" id="saleToggleFilter" name="sale_type" value="sale">
-                    <label for="saleToggleFilter"></label>
+                    <a href="{% url 'car:car_detail' car.id %}" class="detail_page">სრულად</a>
                 </div>
-                <span>ქირავდება</span>
-            </div>
-
-            <select name="manufacturer">
-                <option value="">მწარმოებელი</option>
-                {% for manufacturer in manufacturers %}
-                    <option value="{{ manufacturer.name }}">{{ manufacturer.name }}</option>
-                {% endfor %}
-            </select>
-            <select name="model">
-                <option value="">მოდელი</option>
-                {% for model in models %}
-                    <option value="{{ model.name }}">{{ model.name }}</option>
-                {% endfor %}
-            </select>
-            <select name="year">
-                <option value="">წელი</option>
-                {% for year in years %}
-                    <option value="{{ year }}">{{ year }}</option>
-                {% endfor %}
-            </select>
-            <select name="fuel_type">
-                <option value="">საწვავი</option>
-                <option value="ბენზინი">ბენზინი</option>
-                <option value="დიზელი">დიზელი</option>
-            </select>
-            <button type="submit" class="search-button">ძებნა</button>
+            {% empty %}
+                <p>ავტომობილები ვერ მოიძებნა.</p>
+            {% endfor %}
         </section>
-    </form>
-
-    <section class="car-listing">
-        {% for car in cars %}
-        <div class="car-card">
-            <h3>{{ car.name }}</h3>
-            <p>ფასი: {{ car.price }}</p>
-            <p>საწვავი: {{ car.fuel_type }}</p>
-        </div>
-        {% empty %}
-        <p>No cars found.</p>
-        {% endfor %}
-    </section>
-</main>
+        {% include 'paginator.html' %}
+    </main>
 {% endblock %}
